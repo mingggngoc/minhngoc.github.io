@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Homepage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --accent: #c8f545;
+      --text: #f0ede6;
+      --muted: #888;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Glowing blob */
+    .blob {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,245,69,0.12) 0%, transparent 70%);
+      top: -150px;
+      right: -150px;
+      pointer-events: none;
+      animation: blobPulse 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes blobPulse {
+      from { transform: scale(1); opacity: 0.8; }
+      to   { transform: scale(1.15); opacity: 1; }
+    }
+
+    /* Layout */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Header */
+    header {
+      padding: 64px 0 0;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(200,245,69,0.12);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(200,245,69,0.25);
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    h1 span {
+      color: var(--accent);
+      display: inline-block;
+      position: relative;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      font-weight: 300;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 56px 0;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    /* About section */
+    .section {
+      margin-bottom: 56px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .about-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(240,237,230,0.8);
+    }
+
+    /* Skills / tags grid */
+    .tags-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .skill-tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-weight: 400;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Links */
+    .links-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 500;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .link-card:hover {
+      border-color: rgba(200,245,69,0.4);
+      transform: translateX(4px);
+    }
+
+    .link-card .arrow {
+      color: var(--muted);
+      font-size: 18px;
+      transition: color 0.2s;
+    }
+
+    .link-card:hover .arrow {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      padding: 64px 0 48px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob"></div>
+
+  <div class="container">
+    <header>
+      <div class="tag">✦ Personal Homepage</div>
+      <h1>Hi, I'm <span>Your Name</span>.</h1>
+      <p class="subtitle">A short sentence about who you are — your major, what you're interested in, or what you're working toward.</p>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- About -->
+    <div class="section">
+      <p class="section-label">About</p>
+      <p class="about-text">
+        Write 2–3 sentences about yourself here. What are you studying? Where are you from? What do you enjoy doing outside of class? Keep it friendly and personal.
+      </p>
+    </div>
+
+    <!-- Interests / Skills -->
+    <div class="section">
+      <p class="section-label">Interests & Skills</p>
+      <div class="tags-grid">
+        <span class="skill-tag">Web Development</span>
+        <span class="skill-tag">Your Major</span>
+        <span class="skill-tag">A Hobby</span>
+        <span class="skill-tag">Another Interest</span>
+        <span class="skill-tag">A Tool You Use</span>
+        <span class="skill-tag">Something You're Learning</span>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="section">
+      <p class="section-label">Find Me Online</p>
+      <div class="links-grid">
+        <a href="https://github.com/yourusername" class="link-card" target="_blank">
+          <span>GitHub</span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="https://linkedin.com/in/yourusername" class="link-card" target="_blank">
+          <span>LinkedIn</span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="mailto:your@email.com" class="link-card">
+          <span>Email Me</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      Made with HTML · Hosted on GitHub Pages
+    </footer>
+  </div>
+</body>
+</html>
